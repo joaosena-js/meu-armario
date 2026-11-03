@@ -1,26 +1,144 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Identidade visual: verde esmeralda como cor principal, fundo cinza muito
+ * claro, cartões brancos e textos em cinza escuro. Amarelo para estoque
+ * baixo e vermelho somente para alertas e produtos acabados.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.875rem;
+  --background: oklch(0.984 0.002 247);
+  --foreground: oklch(0.279 0.029 257);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.279 0.029 257);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.279 0.029 257);
+  --primary: oklch(0.596 0.145 163.2);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.967 0.003 264.5);
+  --secondary-foreground: oklch(0.279 0.029 257);
+  --muted: oklch(0.967 0.003 264.5);
+  --muted-foreground: oklch(0.5 0.024 256.8);
+  --accent: oklch(0.979 0.021 166.1);
+  --accent-foreground: oklch(0.432 0.095 166.9);
+  --destructive: oklch(0.577 0.215 27.3);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.928 0.006 264.5);
+  --input: oklch(0.885 0.009 258.3);
+  --ring: oklch(0.596 0.145 163.2);
+
+  --success: oklch(0.596 0.145 163.2);
+  --success-soft: oklch(0.95 0.05 163);
+  --success-strong: oklch(0.432 0.095 166.9);
+  --warning: oklch(0.795 0.162 86);
+  --warning-soft: oklch(0.973 0.071 103.2);
+  --warning-strong: oklch(0.476 0.103 61.9);
+  --danger: oklch(0.577 0.215 27.3);
+  --danger-soft: oklch(0.971 0.013 17.4);
+  --danger-strong: oklch(0.505 0.19 27.5);
+}
+
+.dark {
+  --background: oklch(0.18 0.012 257);
+  --foreground: oklch(0.95 0.005 257);
+  --card: oklch(0.225 0.015 257);
+  --card-foreground: oklch(0.95 0.005 257);
+  --popover: oklch(0.225 0.015 257);
+  --popover-foreground: oklch(0.95 0.005 257);
+  --primary: oklch(0.696 0.15 162.5);
+  --primary-foreground: oklch(0.18 0.03 163);
+  --secondary: oklch(0.28 0.015 257);
+  --secondary-foreground: oklch(0.95 0.005 257);
+  --muted: oklch(0.28 0.015 257);
+  --muted-foreground: oklch(0.72 0.015 257);
+  --accent: oklch(0.3 0.05 165);
+  --accent-foreground: oklch(0.9 0.08 165);
+  --destructive: oklch(0.65 0.2 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.32 0.015 257);
+  --input: oklch(0.38 0.015 257);
+  --ring: oklch(0.696 0.15 162.5);
+
+  --success: oklch(0.696 0.15 162.5);
+  --success-soft: oklch(0.3 0.06 165);
+  --success-strong: oklch(0.85 0.12 163);
+  --warning: oklch(0.83 0.16 86);
+  --warning-soft: oklch(0.32 0.06 80);
+  --warning-strong: oklch(0.9 0.13 90);
+  --danger: oklch(0.65 0.2 25);
+  --danger-soft: oklch(0.3 0.08 25);
+  --danger-strong: oklch(0.85 0.1 25);
 }
 
 @theme inline {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-strong: var(--success-strong);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-strong: var(--warning-strong);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-strong: var(--danger-strong);
+  --radius-sm: calc(var(--radius) - 6px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-lg: calc(var(--radius) - 2px);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Evita zoom automático do iOS em campos com fonte menor que 16px */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+  @media (min-width: 768px) {
+    input,
+    select,
+    textarea {
+      font-size: 0.875rem;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
 }
